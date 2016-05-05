@@ -56,6 +56,28 @@
                                                 Parameters::incorrect();
                                                 break;
                                         }
+                                    } else { // get list
+
+                                        // get arguments
+                                        $args['note_id'] = $page[1];
+                                        foreach (array('id', 'before', 'no_limit') as $v) {
+                                            if (isset($_POST[$v])) {
+                                                $args[] = (int)$_POST[$v];
+                                            }
+                                        }
+
+                                        // success
+                                        if ($data = call_user_func_array('NotesComments::getList', $args)) {
+                                            $response['result'] = true;
+                                            $response['data'] = $data;
+                                        } else {
+                                            $response['result'] = false;
+                                        }
+
+                                        // print json string
+                                        ob_get_clean();
+                                        echo json_encode($response);
+                                        exit;
                                     }
                                     break;
                                 // incorrect
@@ -64,8 +86,6 @@
                                     break;
                             }
                         }
-                        // пока не надо
-                        die('After.');
                     } else { // operation
                         switch ($page[1]) {
                             // insert

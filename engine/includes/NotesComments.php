@@ -9,6 +9,12 @@
         private static $table;
 
         /**
+         * Limit notes comments
+         * @var int
+         */
+        private static $limit = 2;
+
+        /**
          * Init
          */
         public static function init()
@@ -40,6 +46,38 @@
                 // last id
                 return DBSite::lastInsertId();
             } else { // no insert
+                return false;
+            }
+        }
+
+        /**
+         * Get list
+         * @param int $note_id note_id
+         * @param int|null $id id
+         * @param bool $before before?
+         * @param bool $no_limit no limit?
+         * @return bool
+         */
+        public static function getList($note_id, $id = null, $before = false, $no_limit = false)
+        {
+            // forming sql and data
+            $sql = '';
+            $data['note_id'] = $note_id;
+            if (!is_null($id)) { // start defined
+                $sql = " and `id` ".($before ? '<' : '>')." :id";
+                $data['id'] = $id;
+            }
+            // order
+            $sql .= ' order by `id` '.($before ? 'desc' : 'asc');
+            // limit
+            if (!$no_limit) {
+                $sql .= ' limit '.self::$limit;
+            }
+
+            // select
+            if ($array = DBSite::query("select * from `".self::getTable()."` where `note_id` = :note_id ".$sql, $data) ) {
+                return $array;
+            } else { // no is
                 return false;
             }
         }

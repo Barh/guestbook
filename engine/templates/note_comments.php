@@ -1,4 +1,4 @@
 <!-- Note comments -->
-<div class="gb-note-comments">
+<div class="gb-note-comments" data-template>
 
 </div>

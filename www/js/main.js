@@ -17,8 +17,10 @@ $(function() {
             'note' : '.gb-note',
             'notes' : '.gb-notes',
             'notes_more_submit' : '.gb-notes-more input[type=submit]',
-            'note_insert_submit'  : '.gb-note-insert input[name=insert]',
-            'note_comment_insert_submit'  : '.gb-note-comment-insert input[name=insert]'
+            'note_insert_submit' : '.gb-note-insert input[name=insert]',
+            'note_comment_insert_submit' : '.gb-note-comment-insert input[name=insert]',
+            'note_comments_more_submit' : '.gb-note-comments-more input[type=submit]',
+            'note_comment' : '.gb-note-comment'
         };
 
         /**
@@ -63,8 +65,14 @@ $(function() {
             // init note insert
             self.initNoteInsert();
 
+            // init comments
+            self.initComments();
+
             // init comments insert
             self.initNoteCommentInsert();
+
+            // init notes comments more
+            self.initNotesCommentsMore();
         };
 
         /**
@@ -171,6 +179,9 @@ $(function() {
                 } else {
                     $(self.objects.notes).prepend(note);
                 }
+
+                self.setNoteCommentLastId(data[key]['id']);
+                self.setNoteCommentFirstId(data[key]['id']);
             }
 
             // set notes id
@@ -267,6 +278,113 @@ $(function() {
         this.clearNoteInsertForm = function()
         {
             $(self.objects.note_insert_submit).parents('form').eq(0)[0].reset();
+        };
+
+        /**
+         * Init comments
+         */
+        this.initComments = function()
+        {
+            self.values.comments_id = {};
+        };
+
+        /**
+         * Init notes comments more
+         */
+        this.initNotesCommentsMore = function()
+        {
+            $(document).on('click', self.selectors.note_comments_more_submit, function() {
+
+                // note id
+                var note_id = $(this).parents(self.selectors.note).eq(0).attr('data-id');
+
+                if (typeof self.values.comments_id[note_id]['last'] !== 'undefined') {
+                    self.getNotesComments(note_id, self.values.comments_id[note_id]['last']);
+                } else {
+                    self.getNotesComments(note_id);
+                }
+
+                return false;
+            });
+        };
+
+        /**
+         * Get notes comments
+         */
+        this.getNotesComments = function(note_id, id, before, no_limit)
+        {
+            // available request
+            if ( self.requests.note_comments_get === undefined || self.requests.note_comments_get.readyState === 4 )
+            {
+                // set props
+                var props = {};
+                if (typeof id !== 'undefined') {
+                    props.id = id;
+                }
+
+                if (typeof before !== 'undefined') {
+                    props.before = before;
+                }
+
+                if (typeof no_limit !== 'undefined') {
+                    props.no_limit = no_limit;
+                }
+
+                // send request
+                self.requests.notes_get = $.ajax({
+                    url       : '?q=notes/' + note_id + '/comments',
+                    type      : 'POST',
+                    dataType  : 'json',
+                    traditional : true,
+                    data      : props,
+                    success   : function(data)
+                    {
+                        // success
+                        /*if (data.result) {
+                            // обновить список записей
+                            if (typeof props.before !== 'undefined') {
+                                self.addHtmlNotes(data.data, props.before);
+                            } else {
+                                self.addHtmlNotes(data.data);
+                            }
+                        }*/
+                    }
+                });
+            }
+        };
+
+        /**
+         * Set note comment last id
+         */
+        this.setNoteCommentLastId = function(note_id)
+        {
+            // create object
+            if (typeof self.values.comments_id[note_id] === 'undefined') {
+                self.values.comments_id[note_id] = {};
+            }
+
+            var element = $(self.objects.notes).find(self.selectors.note + '[data-id=' + note_id + ']').find(self.selectors.note_comment).last();
+
+            if (element.length) {
+                self.values.comments_id[note_id]['last'] = element.attr('data-id');
+            }
+        };
+
+        /**
+         * Set note comment first id
+         */
+        this.setNoteCommentFirstId = function(note_id)
+        {
+            // create object
+            if (typeof self.values.comments_id[note_id] === 'undefined') {
+                self.values.comments_id[note_id] = {};
+            }
+
+            var element = $(self.objects.notes).find(self.selectors.note + '[data-id=' + note_id + ']').find(self.selectors.note_comment).first();
+
+            if (element.length) {
+                self.values.comments_id[note_id]['first'] = element.attr('data-id');
+            }
         };
 
         /**
