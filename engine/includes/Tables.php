@@ -13,10 +13,26 @@
          */
         public static function init()
         {
-            self::$tables = array(
-                'notes' => Notes::getTable(),
-                'notes_comments' => NotesComments::getTable(),
-            );
+            // set tables
+            foreach (array('notes', 'notes_comments') as $v) {
+                self::$tables[$v] = DBSite::$data['db_prefix'].$v;
+            }
+        }
+
+        /**
+         * Get
+         * @param string $type type
+         * @return string|bool
+         */
+        public static function get(RecordStructure $type)
+        {
+            if ($type instanceof Notes) {
+                return self::$tables['notes'];
+            } else if ($type instanceof Comments) {
+                return self::$tables['notes_comments'];
+            } else {
+                return false;
+            }
         }
 
         /**
@@ -25,7 +41,7 @@
         public static function is()
         {
             return (bool)DBSite::query(
-                "SHOW TABLES LIKE '".Notes::getTable()."'"
+                "SHOW TABLES LIKE '".self::$tables['notes']."'"
             );
         }
 

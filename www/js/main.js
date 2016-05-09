@@ -20,7 +20,8 @@ $(function() {
             'note_insert_submit' : '.gb-note-insert input[name=insert]',
             'note_comment_insert_submit' : '.gb-note-comment-insert input[name=insert]',
             'note_comments_more_submit' : '.gb-note-comments-more input[type=submit]',
-            'note_comment' : '.gb-note-comment'
+            'note_comment'  : '.gb-note-comment',
+            'note_comments' : '.gb-note-comments'
         };
 
         /**
@@ -53,7 +54,8 @@ $(function() {
          */
         this.init = function()
         {
-            // init note html
+            // init note comments and note html
+            self.initNoteCommentHtml();
             self.initNoteHtml();
 
             // init notes
@@ -76,11 +78,35 @@ $(function() {
         };
 
         /**
+         * Init note comment html
+         */
+        this.initNoteCommentHtml = function()
+        {
+            self.elements.note_comment = ($(self.selectors.note_comment).remove().removeAttr('data-template'))[0].outerHTML;
+        };
+
+        /**
          * Init note html
          */
         this.initNoteHtml = function()
         {
             self.elements.note = ($(self.selectors.note).remove().removeAttr('data-template'))[0].outerHTML;
+        };
+
+        /**
+         * Get note comment html
+         * @param {Object} data data
+         * @return {String}
+         */
+        this.getNoteCommentHtml = function(data)
+        {
+            var note = $(self.elements.note_comment);
+            note.attr('data-id', data.id);
+            note.find('[data-email]').text(data.email);
+            note.find('[data-id]').text(data.id);
+            note.find('[data-created]').text(data.created);
+            note.find('[data-text]').text(data.text);
+            return note[0].outerHTML;
         };
 
         /**
@@ -94,8 +120,9 @@ $(function() {
             note.attr('data-id', data.id);
             note.find('[data-name]').text(data.name);
             note.find('[data-email]').text(data.email);
+            note.find('[data-id]').text(data.id);
+            note.find('[data-created]').text(data.created);
             note.find('[data-text]').text(data.text);
-            note.find('[data-comments]').text(data.comments);
             return note[0].outerHTML;
         };
 
@@ -187,6 +214,28 @@ $(function() {
             // set notes id
             self.setNoteLastId();
             self.setNoteFirstId();
+        };
+
+        /**
+         * Add html note comments
+         * @param {Number} note_id
+         * @param {Array} data
+         * @param {Boolean} before
+         */
+        this.addHtmlNoteComments = function(note_id, data, before)
+        {
+            // find comments
+            var note_comments = $(self.selectors.note + '[data-id=' + note_id + '] ' +  self.selectors.note_comments);
+            // each notes
+            for (var key in data) {
+                // insert to html
+                var note = self.getNoteCommentHtml(data[key]);
+                note_comments.append(note);
+            }
+
+            // set note comments id
+            self.setNoteCommentLastId(note_id);
+            self.setNoteCommentFirstId(note_id);
         };
 
         /**
@@ -299,9 +348,9 @@ $(function() {
                 var note_id = $(this).parents(self.selectors.note).eq(0).attr('data-id');
 
                 if (typeof self.values.comments_id[note_id]['last'] !== 'undefined') {
-                    self.getNotesComments(note_id, self.values.comments_id[note_id]['last']);
+                    self.getNoteComments(note_id, self.values.comments_id[note_id]['last']);
                 } else {
-                    self.getNotesComments(note_id);
+                    self.getNoteComments(note_id);
                 }
 
                 return false;
@@ -309,13 +358,15 @@ $(function() {
         };
 
         /**
-         * Get notes comments
+         * Get note comments
          */
-        this.getNotesComments = function(note_id, id, before, no_limit)
+        this.getNoteComments = function(note_id, id, before, no_limit)
         {
             // available request
             if ( self.requests.note_comments_get === undefined || self.requests.note_comments_get.readyState === 4 )
             {
+
+                console.log(id);
                 // set props
                 var props = {};
                 if (typeof id !== 'undefined') {
@@ -340,14 +391,10 @@ $(function() {
                     success   : function(data)
                     {
                         // success
-                        /*if (data.result) {
+                        if (data.result) {
                             // обновить список записей
-                            if (typeof props.before !== 'undefined') {
-                                self.addHtmlNotes(data.data, props.before);
-                            } else {
-                                self.addHtmlNotes(data.data);
-                            }
-                        }*/
+                            self.addHtmlNoteComments(note_id, data.data);
+                        }
                     }
                 });
             }
@@ -430,18 +477,27 @@ $(function() {
                     success   : function(data)
                     {
                         // message
-                        /*alert(data.message);
+                        //alert(data.message);
 
                         // success
                         if (data.result) {
                             // get notes
-                            self.getNotes(self.values.notes_id_last, 0, 1);
+                            self.getNoteComments(note_id, self.values.comments_id[note_id]['last'], 0, 1);
                             // clear form
-                            self.clearNoteInsertForm();
-                        }*/
+                            self.clearNoteCommentInsertForm(note_id);
+                        }
                     }
                 });
             }
+        };
+
+        /**
+         * Clear note comment insert form
+         * @param note_id
+         */
+        this.clearNoteCommentInsertForm = function(note_id)
+        {
+            $(self.selectors.note + '[data-id=' + note_id + '] ' + self.selectors.note_comment_insert_submit).parents('form').eq(0)[0].reset();
         };
     };
 

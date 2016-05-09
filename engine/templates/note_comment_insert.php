@@ -2,35 +2,69 @@
 <div class="gb-note-comment-insert">
     <form method="post">
         <table>
-            <!-- Title -->
             <tr>
-                <td colspan="2">
-                    <div class="gb-note-title"><?php echo Language::get('notes_comments', 'title'); ?></div>
+                <td style="width: 1%;">
+                    <div>
+                        <label><?php echo Language::get('main', 'form_email'); ?></label>
+                    </div>
                 </td>
-            </tr>
-            <tr>
+                <td style="width: 1%;">
+                    <div class="gb-note-comment-insert-email">
+                        <input type="text" name="email" value="" autocomplete="off" />
+                    </div>
+                </td>
+                <td style="width: 1%;">
+                    <div>
+                        <label><?php echo Language::get('main', 'form_text'); ?></label>
+                    </div>
+                </td>
                 <td>
-                    <label for="gb-note-email">E-mail:</label>
+                    <div>
+                        <textarea name="text" id="gb-note-text"></textarea>
+                    </div>
                 </td>
-                <td>
-                    <input type="text" name="email" value="" id="gb-note-email" />
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <label>Сообщение:</label>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <textarea name="text" id="gb-note-text"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <input type="submit" name="insert" value="<?php echo Language::get('notes_comments', 'insert'); ?>" />
+                <td style="width: 1%;">
+                    <div class="gb-note-comment-insert-submit">
+                        <input type="submit" name="insert" value="<?php echo Language::get('comments', 'insert'); ?>" />
+                    </div>
                 </td>
             </tr>
         </table>
+        <?php /*
+        <table>
+            <tr>
+                <td>
+                    <div>
+                        <label><?php echo Language::get('main', 'form_email'); ?></label>
+                    </div>
+                </td>
+                <td>
+                    <div class="gb-insert-field">
+                        <input type="text" name="email" value="" id="gb-note-email" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div>
+                        <label><?php echo Language::get('main', 'form_text'); ?></label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div>
+                        <textarea name="text"></textarea>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="gb-insert-submit">
+                        <input type="submit" name="insert" value="<?php echo Language::get('notes_comments', 'insert'); ?>" />
+                    </div>
+                </td>
+            </tr>
+        </table> */ ?>
     </form>
 </div>

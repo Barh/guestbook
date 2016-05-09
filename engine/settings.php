@@ -7,7 +7,7 @@
             'host'      => 'localhost',
             'port'      => '',
             'user'      => 'see',
-            'password'  => 'tSFf8jls6BXhxNBF5sYp',
+            'password'  => '',
             'db_name'   => 'see',
             'db_prefix' => 'gb_',
             'charset'   => 'utf8',

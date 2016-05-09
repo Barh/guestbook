@@ -9,13 +9,13 @@
     include_once 'settings.php';
     include_once 'includes/AutoLoader.php';
 
-    // prepare tables
+    // Prepare tables
     if (!Tables::is()) {
         Tables::create();
     }
 
-    // Pages
-    include_once 'controllers/pages.php';
+    // Data
+    include_once 'controllers/data.php';
 
     // Main template
     include_once 'templates/main.php';

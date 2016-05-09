@@ -1,42 +1,56 @@
 <!-- Note insert -->
-<div class="gb-note-insert">
+<div class="gb-note-insert gb-insert">
     <form method="post">
         <table>
             <!-- Title -->
             <tr>
                 <td colspan="2">
-                    <div class="gb-note-title"><?php echo Language::get('notes', 'title'); ?></div>
+                    <div class="gb-insert-title"><?php echo Language::get('notes', 'title'); ?></div>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label>Имя:</label>
+                    <div>
+                        <label for="gb-note-name"><?php echo Language::get('main', 'form_name'); ?></label>
+                    </div>
                 </td>
                 <td>
-                    <input type="text" name="name" value="" />
+                    <div class="gb-insert-field">
+                        <input type="text" name="name" value="" id="gb-note-name" maxlength="20" autocomplete="off" />
+                    </div>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="gb-note-email">E-mail:</label>
+                    <div>
+                        <label for="gb-note-email"><?php echo Language::get('main', 'form_email'); ?></label>
+                    </div>
                 </td>
                 <td>
-                    <input type="text" name="email" value="" id="gb-note-email" />
+                    <div class="gb-insert-field">
+                        <input type="text" name="email" value="" id="gb-note-email" maxlength="20" autocomplete="off" />
+                    </div>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <label for="gb-note-text">Сообщение:</label>
+                    <div>
+                        <label for="gb-note-text"><?php echo Language::get('main', 'form_text'); ?></label>
+                    </div>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <textarea name="text" id="gb-note-text"></textarea>
+                    <div>
+                        <textarea name="text" id="gb-note-text"></textarea>
+                    </div>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <input type="submit" name="insert" value="<?php echo Language::get('notes', 'insert'); ?>" id="gb-note-email" />
+                    <div class="gb-insert-submit">
+                        <input type="submit" name="insert" value="<?php echo Language::get('notes', 'insert'); ?>" id="gb-note-email" />
+                    </div>
                 </td>
             </tr>
         </table>
