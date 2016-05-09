@@ -58,34 +58,34 @@
         .gb-note [data-text] { margin-top: 6px; }
 
 /* Note */
-    .gb-note-comment { margin: 10px 0 10px 60px; padding: 4px; background: #d8d8d8; }
+    .gb-comment { margin: 10px 0 10px 60px; padding: 4px; background: #d8d8d8; }
     /* Title */
-        .gb-note-comment-title { float: left; }
+        .gb-comment-title { float: left; }
         /* Email */
-            .gb-note-comment [data-email] { font-weight: bold; }
+            .gb-comment [data-email] { font-weight: bold; }
         /* Id */
-            .gb-note-comment-id { font-size: .6em; font-style: italic; }
+            .gb-comment-id { font-size: .6em; font-style: italic; }
     /* Created */
-        .gb-note-comment [data-created] { float: right; font-size: .8em; }
+        .gb-comment [data-created] { float: right; font-size: .8em; }
     /* Text */
-        .gb-note-comment [data-text] { margin-top: 6px; }
+        .gb-comment [data-text] { margin-top: 6px; }
 
 
 /* Note Comments */
-    .gb-note-comments { margin-top: 10px; border-top: 1px solid #000; }
+    .gb-comments { margin-top: 10px; border-top: 1px solid #000; }
 
 /* Note Comments More */
-        .gb-note-comments-more { margin: 4px 0; text-align: center; }
+        .gb-comments-more { margin: 4px 0; text-align: center; }
 
 /* Note comments insert */
-    .gb-note-comment-insert { border-top: 1px solid #000; padding: 4px; }
-    .gb-note-comment-insert table { width: 100%; background-color: #e0e0e0; }
-    .gb-note-comment-insert table td { vertical-align: top; }
-    .gb-note-comment-insert label { white-space: nowrap; margin-right: 4px; font-style: italic; font-size: .8em; }
-    .gb-note-comment-insert [name=email] { width: 120px; }
-    .gb-note-comment-insert textarea { height: 22px; width: 100%; box-sizing: border-box; resize: vertical; }
-    .gb-note-comment-insert-submit { padding-left: 4px; }
-    .gb-note-comment-insert-email { margin-right: 4px; }
+    .gb-comment-insert { border-top: 1px solid #000; padding: 4px; }
+    .gb-comment-insert table { width: 100%; background-color: #e0e0e0; }
+    .gb-comment-insert table td { vertical-align: top; }
+    .gb-comment-insert label { white-space: nowrap; margin-right: 4px; font-style: italic; font-size: .8em; }
+    .gb-comment-insert [name=email] { width: 120px; }
+    .gb-comment-insert textarea { height: 22px; width: 100%; box-sizing: border-box; resize: vertical; }
+    .gb-comment-insert-submit { padding-left: 4px; }
+    .gb-comment-insert-email { margin-right: 4px; }
 
 /* Notes more */
     .gb-notes-more { text-align: center; margin-bottom: 20px; }

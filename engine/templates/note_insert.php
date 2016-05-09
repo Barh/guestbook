@@ -8,6 +8,7 @@
                     <div class="gb-insert-title"><?php echo Language::get('notes', 'title'); ?></div>
                 </td>
             </tr>
+            <!-- Name -->
             <tr>
                 <td>
                     <div>
@@ -20,6 +21,7 @@
                     </div>
                 </td>
             </tr>
+            <!-- Email -->
             <tr>
                 <td>
                     <div>
@@ -32,6 +34,7 @@
                     </div>
                 </td>
             </tr>
+            <!-- Text -->
             <tr>
                 <td colspan="2">
                     <div>
@@ -46,6 +49,7 @@
                     </div>
                 </td>
             </tr>
+            <!-- Submit -->
             <tr>
                 <td colspan="2">
                     <div class="gb-insert-submit">

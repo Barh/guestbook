@@ -11,7 +11,7 @@
         public function construct()
         {
             // default properties
-            $this->setAfter();
+            //$this->setAfter();
             $this->setOrderAsc();
         }
 
