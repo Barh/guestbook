@@ -14,6 +14,23 @@
         Tables::create();
     }
 
+    // Action
+    if (isset($action)) {
+        // drop tables
+        if ($action == 'drop_tables') {
+            Tables::drop();
+            echo 'Dropped tables';
+        }
+
+        // fill tables
+        if ($action == 'fill_tables') {
+            Tables::fill();
+            echo 'Filled tables';
+        }
+
+        exit;
+    }
+
     // Data
     include_once 'controllers/data.php';
 

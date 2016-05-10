@@ -12,7 +12,7 @@
         protected $props = array(
             'id'      => 0,
             'before'  => false,
-            'limit'   => 2,
+            'limit'   => 4,
             'order'   => false,
         );
 

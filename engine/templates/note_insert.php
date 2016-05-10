@@ -17,7 +17,7 @@
                 </td>
                 <td>
                     <div class="gb-insert-field">
-                        <input type="text" name="name" value="" id="gb-note-name" maxlength="20" autocomplete="off" />
+                        <input type="text" name="name" value="" id="gb-note-name" autocomplete="off" />
                     </div>
                 </td>
             </tr>
@@ -30,7 +30,7 @@
                 </td>
                 <td>
                     <div class="gb-insert-field">
-                        <input type="text" name="email" value="" id="gb-note-email" maxlength="20" autocomplete="off" />
+                        <input type="text" name="email" value="" id="gb-note-email" autocomplete="off" />
                     </div>
                 </td>
             </tr>
